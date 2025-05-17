@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * {
       box-sizing: border-box;
@@ -13,8 +12,11 @@
     body {
       font-family: 'Arial', sans-serif;
       background: linear-gradient(to bottom, #121212, #1e1e1e);
-      color: #f0f0f0;
+      color: #ccc;
       min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       user-select: none;
     }
     
@@ -29,6 +31,7 @@
       align-items: center;
       padding: 1rem;
       color: #ccc;
+      flex-shrink: 0;
     }
 
     .top-bar span {
@@ -38,15 +41,15 @@
     .top-bar i {
       color: #ccc;
     }
-    
+
     .top-bar i:active {
-     opacity: 0.5;
+      opacity: 0.5;
     }
 
     .info-card {
       background: #2c2c2e;
       padding: 10px;
-      margin: 10px;
+      margin: 5px 10px;
       border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       flex-shrink: 0;
@@ -147,7 +150,8 @@
     }
 
     .tab-bar-wrapper {
-      margin: 20px 10px 10px 10px;
+      margin: 15px 10px 0 10px;
+      flex-shrink: 0;
     }
 
     .tab-bar {
@@ -191,55 +195,44 @@
     }
 
     .tab-content {
-      padding: 0 10px;
+      padding: 10px;
+      height: 55vh;
+      overflow-y: auto;
     }
 
     .card-list {
-      display: flex;
-      justify-content: space-between;
       background: #2c2c2e;
-      padding: 10px 15px;
-      border-radius: 20px;
-      margin: 5px 0;
-      align-items: center;
+      padding: 15px;
+      margin-bottom: 5px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      animation-fill-mode: forwards;
     }
 
-    .card-list.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card-list .rank {
-      font-size: 20px;
-      color: #ccc;
-      margin-right: 0.6rem;
-      padding-right: 10px;
-      border-right: 1px #777 solid;
-      width: 24px;
-      text-align: center;
-    }
-
-    .card-list .info {
-      display: flex;
-      align-items: center;
-    }
-
-    .card-list .text {
-      display: flex;
-      color: #ccc;
-      flex-direction: column;
+    .card-title {
       font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #ccc;
     }
 
-    .card-list .amount {
-      background: #555;
-      padding: 5px 10px;
-      border-radius: 10px;
+    .card-desc {
+      font-size: 12px;
+      color: #aaa;
+      flex: 1;
+    }
+
+    .card-footer {
       font-size: 10px;
-      color: #ccc;
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      margin-top: 10px;
     }
 
     .tab-section {
@@ -249,58 +242,47 @@
     .tab-section.active {
       display: block;
     }
+
+    @keyframes cardSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
- <div class="floating-overlay" id="infoOverlay" onclick="hideOverlay(event,'infoOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami terus memperbarui aplikasi ini untuk memastikan pengalaman terbaik bagi pengguna. pastikan refresh halaman berkala untuk mendapatkan update <small><a href="https://chat.whatsapp.com/BXCrLMzyx0D6WGAfmvMbCT" target="_blank">bergabung ke komunitas..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div><div class="floating-overlay" id="feedbackOverlay" onclick="hideOverlay(event,'feedbackOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami sangat menghargai umpan balik dari Anda. Silakan kirim saran, kritik, atau pertanyaan Anda agar kami bisa menjadi lebih baik. <small><a href="mailto:plixbantuan@email.com" target="_blank">saran feedback..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div>
+ 
+<div class="floating-overlay" id="infoOverlay" onclick="hideOverlay(event,'infoOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami terus memperbarui aplikasi ini untuk memastikan pengalaman terbaik bagi pengguna. pastikan refresh halaman berkala untuk mendapatkan update <small><a href="https://chat.whatsapp.com/BXCrLMzyx0D6WGAfmvMbCT" target="_blank">bergabung ke komunitas..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div><div class="floating-overlay" id="feedbackOverlay" onclick="hideOverlay(event,'feedbackOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami sangat menghargai umpan balik dari Anda. Silakan kirim saran, kritik, atau pertanyaan Anda agar kami bisa menjadi lebih baik. <small><a href="mailto:plixbantuan@email.com" target="_blank">saran feedback..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div>
 
-<div class="top-bar"><i class="fas fa-times-circle" onclick="history.back()"></i><span>LEADERBOARD</span><i class="fas fa-envelope-open-text" onclick="showOverlay('feedbackOverlay')"></i></div>
+<div class="top-bar"><i class="fas fa-times-circle" onclick="history.back()"></i><span>PEMBARUAN</span><i class="fas fa-envelope-open-text" onclick="showOverlay('feedbackOverlay')"></i></div>
 
-<div class="info-card"><div class="info-content"><p>Leaderboard akan diupdate setiap minggu. Nantikan siapa yang tertinggi selanjutnya.</p><div class="divider"></div><i class="fas fa-info-circle" onclick="showOverlay('infoOverlay')"></i></div></div>
+<div class="info-card"><div class="info-content"><p>Info pembaruan ditampilkan sesuai kategori. Selalu cek untuk info terbaru.</p><div class="divider"></div><i class="fas fa-info-circle" onclick="showOverlay('infoOverlay')"></i></div></div>
 
 <div class="info-card"><div class="info-content"><p>Sering sering cek update dengan refresh halaman atau klik icons di samping</p><div class="divider"></div><i class="fas fa-undo" onclick="location.reload()"></i></div></div>
 
-<div class="tab-bar-wrapper">
-  <div class="tab-bar">
-    <div class="tab active" onclick="switchTab(0)">Support</div>
-    <div class="tab" onclick="switchTab(1)">Balance</div>
-    <div class="tab" onclick="switchTab(2)">Online</div>
-    <div class="tab-indicator" id="indicator"></div>
-  </div>
+<div class="tab-bar-wrapper"><div class="tab-bar"><div class="tab active" onclick="switchTab(0)">Update</div><div class="tab" onclick="switchTab(1)">Fixed</div><div class="tab" onclick="switchTab(2)">Event</div><div class="tab-indicator" id="indicator"></div></div></div>
+
+<div class="tab-content"><div class="tab-section active">
+ 
+<div class="card-list"><div class="card-title">Lorem Ipsum Dolor</div><div class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div><div class="card-footer"><span>13 Mei 2025</span><span>~ ygaks teams</span></div>
+    
+</div></div>
+
+<div class="tab-section">
+ 
+<div class="card-list"><div class="card-title">Lorem Ipsum Dolor</div><div class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div><div class="card-footer"><span>13 Mei 2025</span><span>~ ygaks teams</span></div></div>
+ 
 </div>
 
-<div class="tab-content">
+<div class="tab-section">
 
-  <div class="tab-section active">
+<div class="card-list"><div class="card-title">Lorem Ipsum Dolor</div><div class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div><div class="card-footer"><span>13 Mei 2025</span><span>~ ygaks teams</span></div></div>
 
-    <div class="card-list"><div class="info"><div class="rank">1</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">2</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">3</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">4</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">5</div><div class="text">none</div></div><div class="amount">none</div></div>
-  </div>
+</div></div>
 
-  <div class="tab-section">
 
-    <div class="card-list"><div class="info"><div class="rank">1</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">2</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">3</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">4</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">5</div><div class="text">none</div></div><div class="amount">none</div></div>
-  </div>
-
-  <div class="tab-section">
-
-    <div class="card-list"><div class="info"><div class="rank">1</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">2</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">3</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">4</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">5</div><div class="text">none</div></div><div class="amount">none</div></div>
-  </div>
-  
-</div>
-
-<script>function switchTab(i){const t=document.querySelectorAll(".tab"),e=document.querySelectorAll(".tab-section"),n=document.getElementById("indicator");t.forEach((t,o)=>{t.classList.toggle("active",o===i)}),e.forEach((t,o)=>{if(o===i){t.classList.add("active");const i=t.querySelectorAll(".card-list");i.forEach(t=>t.classList.remove("show")),i.forEach((t,e)=>{setTimeout(()=>{t.classList.add("show")},150*e)})}else t.classList.remove("active")}),n.style.left=33.33*i+"%"}window.addEventListener("load",()=>{const i=document.querySelector(".tab-section.active");if(i){const t=i.querySelectorAll(".card-list");t.forEach(t=>t.classList.remove("show")),t.forEach((t,e)=>{setTimeout(()=>{t.classList.add("show")},150*e)})}});</script><script>function showOverlay(i){document.getElementById(i).classList.add("show")}function hideOverlay(e,i){document.getElementById(i).classList.remove("show")}</script>
-
+<script>function switchTab(i){const t=document.querySelectorAll(".tab"),e=document.querySelectorAll(".tab-section"),n=document.getElementById("indicator");t.forEach((t,o)=>t.classList.toggle("active",o===i)),e.forEach((t,o)=>{t.classList.toggle("active",o===i),o===i&&t.querySelectorAll(".card-list").forEach((t,i)=>{t.style.animation="none",t.style.opacity=0,t.style.transform="translateY(20px)",void t.offsetWidth,t.style.animation="cardSlideUp 0.5s ease forwards",t.style.animationDelay=`${i*.15}s`})}),n.style.left=33.33*i+"%"}window.addEventListener("load",()=>{const i=document.querySelector(".tab-section.active");if(i)i.querySelectorAll(".card-list").forEach((t,e)=>{t.style.animation="none",t.style.opacity=0,t.style.transform="translateY(20px)",void t.offsetWidth,t.style.animation="cardSlideUp 0.5s ease forwards",t.style.animationDelay=`${e*.15}s`})});</script>
+<script>function showOverlay(i){document.getElementById(i).classList.add("show")}function hideOverlay(e,i){document.getElementById(i).classList.remove("show")}</script>
 </body>
 </html>
