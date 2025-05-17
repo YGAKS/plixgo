@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #121212, #1e1e1e);
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+    a {
+     color: #1E90FF;
+     text-decoration: none;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      color: #ccc;
+    }
+    .top-bar span {
+      font-size: 15px;
+    }
+    .top-bar i{
+     color: #ccc;
+    }
+    .top-bar i:active {
+     opacity: 0.5;
+    }
+    .info-card {
+      background: #2c2c2e;
+      padding: 10px;
+      margin: 5px 10px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+
+    .info-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .info-content i {
+      font-size: 15px;
+      color: #ccc;
+      flex-shrink: 0;
+    }
+    
+    .info-content .divider {
+      width: 1px;
+      height: 20px;
+      background-color: #555;
+    }
+    
+    .info-content p {
+      font-size: 12px;
+      color: #777;
+      margin: 0;
+    }
+    
+    .floating-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .floating-overlay.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .floating-box {
+      background: #2c2c2e;
+      padding: 20px;
+      border-radius: 20px;
+      width: 70%;
+      max-width: 300px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      opacity: 0;
+      animation: popUp 0.3s ease forwards;
+    }
+    
+    .floating-box p {
+     font-size: 14px;
+     color: #ccc;
+    }
+    
+    .floating-box small {
+     color: #1E90FF;
+     font-size: 14px;
+    }
+    
+    .floating-btn {
+     background-color: #ccc;
+     color: #333;
+     border-radius: 40px;
+     padding: 10px 0;
+     width: 100%;
+     font-size: 14px;
+     text-align: center;
+     margin: 10px 0;
+     scale: 1;
+     transition: scale 0.2s ease;
+    }
+    
+    .floating-btn:active {
+     scale: 0.95;
+    }
+    
+    @keyframes popUp {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="floating-overlay" id="infoOverlay" onclick="hideOverlay(event,'infoOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami terus memperbarui aplikasi ini untuk memastikan pengalaman terbaik bagi pengguna. pastikan refresh halaman berkala untuk mendapatkan update <small><a href="https://chat.whatsapp.com/BXCrLMzyx0D6WGAfmvMbCT" target="_blank">bergabung ke komunitas..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div><div class="floating-overlay" id="feedbackOverlay" onclick="hideOverlay(event,'feedbackOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami sangat menghargai umpan balik dari Anda. Silakan kirim saran, kritik, atau pertanyaan Anda agar kami bisa menjadi lebih baik. <small><a href="mailto:plixbantuan@email.com" target="_blank">saran feedback..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div>
+
+<div class="top-bar"><i class="fas fa-times-circle" onclick="history.back()"></i><span>PANDUAN DAN INFORMASI</span><i class="fas fa-envelope-open-text" onclick="showOverlay('feedbackOverlay')"></i></div>
+
+<div class="info-card"><div class="info-content"><p>Info pembaruan ditampilkan sesuai kategori. Selalu cek untuk info terbaru.</p><div class="divider"></div><i class="fas fa-info-circle" onclick="showOverlay('infoOverlay')"></i></div></div>
+
+<div class="info-card"><div class="info-content"><p>Sering sering cek update dengan refresh halaman atau klik icons di samping</p><div class="divider"></div><i class="fas fa-undo" onclick="location.reload()"></i></div></div>
+
+<script>function showOverlay(i){document.getElementById(i).classList.add("show")}function hideOverlay(e,i){document.getElementById(i).classList.remove("show")}</script>
+</body>
+</html>
