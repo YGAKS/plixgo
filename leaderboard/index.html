@@ -1,306 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
+    * { box-sizing: border-box; }
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #121212, #1e1e1e);
-      color: #f0f0f0;
-      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
       user-select: none;
     }
-    
-    a {
-     color: #1E90FF;
-     text-decoration: none;
-    }
-
-    .top-bar {
+    .navbar {
+      background: #f1f4f9;
+      padding: 20px 15px;
+      margin-bottom: 20px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 1rem;
-      color: #ccc;
+      justify-content: space-between;
+      position: relative;
     }
-
-    .top-bar span {
-      font-size: 15px;
+    .nav-icon {
+      color: #213356;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 18px;
     }
-
-    .top-bar i {
-      color: #ccc;
+    .title-bar {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+      color: #213356;
     }
-    
-    .top-bar i:active {
-     opacity: 0.5;
-    }
-
-    .info-card {
-      background: #2c2c2e;
-      padding: 10px;
-      margin: 10px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      flex-shrink: 0;
-    }
-
-    .info-content {
+    .nav-left, .nav-right {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    
-    .info-content i {
-      font-size: 15px;
-      color: #ccc;
-      flex-shrink: 0;
+    .tab-container {
+      padding: 0 15px;
+      margin-top: 20px;
     }
-    
-    .info-content .divider {
-      width: 1px;
-      height: 20px;
-      background-color: #555;
-    }
-    
-    .info-content p {
-      font-size: 12px;
-      color: #777;
-      margin: 0;
-    }
-    
-    .floating-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    
-    .floating-overlay.show {
-      display: flex;
-      animation: fadeIn 0.3s ease;
-    }
-    
-    .floating-box {
-      background: #2c2c2e;
-      padding: 20px;
-      border-radius: 20px;
-      width: 70%;
-      max-width: 300px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      transform: scale(0.9);
-      opacity: 0;
-      animation: popUp 0.3s ease forwards;
-    }
-    
-    .floating-box p {
-     font-size: 14px;
-     color: #ccc;
-    }
-    
-    .floating-box small {
-     color: #1E90FF;
-     font-size: 14px;
-    }
-    
-    .floating-btn {
-     background-color: #ccc;
-     color: #333;
-     border-radius: 40px;
-     padding: 10px 0;
-     width: 100%;
-     font-size: 14px;
-     text-align: center;
-     margin: 10px 0;
-     scale: 1;
-     transition: scale 0.2s ease;
-    }
-    
-    .floating-btn:active {
-     scale: 0.95;
-    }
-    
-    @keyframes popUp {
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-    
-    @keyframes fadeIn {
-      from {
-        background: rgba(0, 0, 0, 0);
-      }
-      to {
-        background: rgba(0, 0, 0, 0.5);
-      }
-    }
-
-    .tab-bar-wrapper {
-      margin: 20px 10px 10px 10px;
-    }
-
     .tab-bar {
-      background: #2c2c2e;
       display: flex;
-      justify-content: space-between;
+      gap: 10px;
       border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
-
     .tab {
       flex: 1;
       text-align: center;
-      padding: 12px 0;
-      font-size: 14px;
-      color: #ccc;
-      background: transparent;
-      border: none;
-      position: relative;
-      z-index: 2;
-      transition: color 0.3s ease;
-      user-select: none;
+      padding: 10px 0;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      color: #fff;
     }
-
-    .tab.active {
-      color: #000;
+    .tab.online {
+      background-color: #a8efff;
     }
-
-    .tab-indicator {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 33.33%;
-      height: 100%;
-      background: #ccc;
-      border-radius: 20px;
-      z-index: 1;
-      transition: left 0.3s ease;
+    .tab.balance {
+      background-color: #baf4d0;
     }
-
+    .tab.support {
+      background-color: #ffd0b3;
+    }
+    .tab.active.online {
+      background-color: #00B8E0;
+    }
+    .tab.active.balance {
+      background-color: #32D66B;
+    }
+    .tab.active.support {
+      background-color: #FF914D;
+    }
     .tab-content {
-      padding: 0 10px;
-    }
-
-    .card-list {
-      display: flex;
-      justify-content: space-between;
-      background: #2c2c2e;
-      padding: 10px 15px;
-      border-radius: 20px;
-      margin: 5px 0;
-      align-items: center;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .card-list.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card-list .rank {
-      font-size: 20px;
-      color: #ccc;
-      margin-right: 0.6rem;
-      padding-right: 10px;
-      border-right: 1px #777 solid;
-      width: 24px;
-      text-align: center;
-    }
-
-    .card-list .info {
-      display: flex;
-      align-items: center;
-    }
-
-    .card-list .text {
-      display: flex;
-      color: #ccc;
-      flex-direction: column;
-      font-size: 14px;
-    }
-
-    .card-list .amount {
-      background: #555;
-      padding: 5px 10px;
-      border-radius: 10px;
-      font-size: 10px;
-      color: #ccc;
-    }
-
-    .tab-section {
       display: none;
     }
-
-    .tab-section.active {
+    .tab-content.active {
       display: block;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-bottom: 1px #fff solid;
+      color: #fff;
+    }
+    .card.online {
+      background-color: #00B8E0;
+    }
+    .card.balance {
+      background-color: #32D66B;
+    }
+    .card.support {
+      background-color: #FF914D;
+    }
+    .rank-circle {
+      width: 50px;
+      height: 30px;
+      color: #fff;
+      padding-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .card-info {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+    }
+    .card-title {
+      font-size: 16px;
+    }
+    .card-subtitle {
+      font-size: 15px;
+      text-align: right;
+    }
+    .update-card {
+      background-color: #f1f4f9;
+      color: #213356;
+      border-top: 2px #213356 solid;
+      padding: 10px;
+      align-items: center;
+      text-align: center;
+      font-size: 12px;
+      margin: 0 15px;
     }
   </style>
 </head>
 <body>
- <div class="floating-overlay" id="infoOverlay" onclick="hideOverlay(event,'infoOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami terus memperbarui aplikasi ini untuk memastikan pengalaman terbaik bagi pengguna. pastikan refresh halaman berkala untuk mendapatkan update <small><a href="https://chat.whatsapp.com/BXCrLMzyx0D6WGAfmvMbCT" target="_blank">bergabung ke komunitas..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div><div class="floating-overlay" id="feedbackOverlay" onclick="hideOverlay(event,'feedbackOverlay')"><div class="floating-box" onclick="event.stopPropagation()"><p>Kami sangat menghargai umpan balik dari Anda. Silakan kirim saran, kritik, atau pertanyaan Anda agar kami bisa menjadi lebih baik. <small><a href="mailto:plixbantuan@email.com" target="_blank">saran feedback..</a></small></p><div class="floating-btn" onclick="location.reload()">Tutup</div></div></div>
+<div class="navbar">
+  <div class="nav-left">
+    <div class="nav-icon" onclick="history.back()"><i class="fas fa-qrcode"></i></div>
+  </div>
+  <div class="title-bar">MINEPLIX</div>
+  <div class="nav-right">
+    <div class="nav-icon"><i class="fas fa-bell"></i></div>
+  </div>
+</div>
 
-<div class="top-bar"><i class="fas fa-times-circle" onclick="history.back()"></i><span>LEADERBOARD</span><i class="fas fa-envelope-open-text" onclick="showOverlay('feedbackOverlay')"></i></div>
+<div class="update-card"><span>informasi leaderboard di update setiap seminggu jadi sering sering cek update terbaru dengan merefresh halaman ini. website ini di design lebih rapih di android dan ios di dekstop dsb bisa cuma agak melebar hehe</span></div>
 
-<div class="info-card"><div class="info-content"><p>Leaderboard akan diupdate setiap minggu. Nantikan siapa yang tertinggi selanjutnya.</p><div class="divider"></div><i class="fas fa-info-circle" onclick="showOverlay('infoOverlay')"></i></div></div>
-
-<div class="info-card"><div class="info-content"><p>Sering sering cek update dengan refresh halaman atau klik icons di samping</p><div class="divider"></div><i class="fas fa-undo" onclick="location.reload()"></i></div></div>
-
-<div class="tab-bar-wrapper">
+<div class="tab-container">
   <div class="tab-bar">
-    <div class="tab active" onclick="switchTab(0)">Support</div>
-    <div class="tab" onclick="switchTab(1)">Balance</div>
-    <div class="tab" onclick="switchTab(2)">Online</div>
-    <div class="tab-indicator" id="indicator"></div>
+    <div class="tab online active" onclick="setActiveTab(this, 'online')">Online</div>
+    <div class="tab balance" onclick="setActiveTab(this, 'balance')">Balance</div>
+    <div class="tab support" onclick="setActiveTab(this, 'support')">Support</div>
   </div>
+  <div id="online" class="tab-content active"></div>
+  <div id="balance" class="tab-content"></div>
+  <div id="support" class="tab-content"></div>
 </div>
 
-<div class="tab-content">
-
-  <div class="tab-section active">
-
-    <div class="card-list"><div class="info"><div class="rank">1</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">2</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">3</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">4</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">5</div><div class="text">none</div></div><div class="amount">none</div></div>
-  </div>
-
-  <div class="tab-section">
-
-    <div class="card-list"><div class="info"><div class="rank">1</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">2</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">3</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">4</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">5</div><div class="text">none</div></div><div class="amount">none</div></div>
-  </div>
-
-  <div class="tab-section">
-
-    <div class="card-list"><div class="info"><div class="rank">1</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">2</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">3</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">4</div><div class="text">none</div></div><div class="amount">none</div></div>
-    <div class="card-list"><div class="info"><div class="rank">5</div><div class="text">none</div></div><div class="amount">none</div></div>
-  </div>
-  
-</div>
-
-<script>function switchTab(i){const t=document.querySelectorAll(".tab"),e=document.querySelectorAll(".tab-section"),n=document.getElementById("indicator");t.forEach((t,o)=>{t.classList.toggle("active",o===i)}),e.forEach((t,o)=>{if(o===i){t.classList.add("active");const i=t.querySelectorAll(".card-list");i.forEach(t=>t.classList.remove("show")),i.forEach((t,e)=>{setTimeout(()=>{t.classList.add("show")},150*e)})}else t.classList.remove("active")}),n.style.left=33.33*i+"%"}window.addEventListener("load",()=>{const i=document.querySelector(".tab-section.active");if(i){const t=i.querySelectorAll(".card-list");t.forEach(t=>t.classList.remove("show")),t.forEach((t,e)=>{setTimeout(()=>{t.classList.add("show")},150*e)})}});</script><script>function showOverlay(i){document.getElementById(i).classList.add("show")}function hideOverlay(e,i){document.getElementById(i).classList.remove("show")}</script>
-
+<script>
+  const data = {
+    online: [
+      {name: "User 1", subtitle: "980 pts"},
+      {name: "User 2", subtitle: "960 pts"},
+      {name: "User 3", subtitle: "940 pts"},
+      {name: "User 4", subtitle: "920 pts"},
+      {name: "User 5", subtitle: "900 pts"}
+    ],
+    balance: [
+      {name: "User B1", subtitle: "Rp 10M"},
+      {name: "User B2", subtitle: "Rp 9M"},
+      {name: "User B3", subtitle: "Rp 9M"},
+      {name: "User B4", subtitle: "Rp 8.5k"},
+      {name: "User B5", subtitle: "Rp 8.k"}
+    ],
+    support: [
+      {name: "Support 1", subtitle: "150 tickets"},
+      {name: "Support 2", subtitle: "145 tickets"},
+      {name: "Support 3", subtitle: "140 tickets"},
+      {name: "Support 4", subtitle: "135 tickets"},
+      {name: "Support 5", subtitle: "130 tickets"}
+    ]
+  };
+  function setActiveTab(e, id) {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    e.classList.add("active");
+    document.querySelectorAll(".tab-content").forEach(c => {
+      c.classList.remove("active");
+      c.innerHTML = "";
+    });
+    const target = document.getElementById(id);
+    target.classList.add("active");
+    data[id].forEach((item, i) => {
+      const card = document.createElement("div");
+      card.className = `card ${id}`;
+      card.innerHTML = `
+        <div class="rank-circle">
+          ${i === 0 ? '<i class="fas fa-crown"></i>' : i + 1}
+        </div>
+        <div class="card-info">
+          <div class="card-title">${item.name}</div>
+          <div class="card-subtitle">${item.subtitle}</div>
+        </div>
+      `;
+      target.appendChild(card);
+    });
+  }
+  window.addEventListener("DOMContentLoaded", () => {
+    setActiveTab(document.querySelector(".tab.active"), "online");
+  });
+</script>
 </body>
 </html>
